@@ -1,0 +1,18 @@
+.footer{
+    position: absolute;/*←絶対位置*/
+    bottom: 0; /*下に固定*/
+}
+
+.confirmBtn {
+    bottom: 65px;
+    display: -webkit-box;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    flex-direction: column;
+    height: 100px;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+    position: fixed;
+    right: 0;
+}
