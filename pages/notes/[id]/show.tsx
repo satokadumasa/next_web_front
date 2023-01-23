@@ -67,7 +67,6 @@ const Show: NextPage<{ note: Note }> = ({
   return (
     <Layout signedin={!!currentUser} loading={loading}>
       <Header title={note.title} />
-      [NOTE]
       <div className="container z-10">
         <div className="flex flex-col items-center">
           <div className="flex w-full w-1/1 pl-1 flex-row">
@@ -92,7 +91,6 @@ const Show: NextPage<{ note: Note }> = ({
                 </div>
               </div>
           </div>
-          <h1>note.title</h1>
           <div className="flex h-full w-full flex-row h-full text-left">
             { nl2br(note.overview) }
           </div>

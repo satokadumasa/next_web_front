@@ -8,12 +8,6 @@ const Signup: React.FC = () => {
   const router = useRouter()
   const { currentUser, loading } = useAuth()
   const signup = useSignup()
-  console.log("Signup CH-01")
-  useEffect(() => {
-    console.log("Signup CH-02")
-    currentUser && router.push('/')
-  })
-  console.log("Signup CH-03")
 
   return (
     <Layout signedin={!!currentUser} loading={loading || !!currentUser}>

@@ -92,9 +92,6 @@ const Show: NextPage<{ board: Board }> = ({
               </div>
           </div>
           <div className="flex h-full w-full flex-row h-full text-left">
-            { nl2br(board.title) }
-          </div>
-          <div className="flex h-full w-full flex-row h-full text-left">
             { nl2br(board.detail) }
           </div>
         </div>

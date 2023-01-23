@@ -21,3 +21,7 @@
     position: relative;
     top: 70px;
 }
+
+.header {
+    z-index: 1;
+}

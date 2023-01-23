@@ -96,12 +96,6 @@ const SignupForm: React.FC<Props> = ({ signup, roles }) => {
             ref={register({ required: true })}
           />
         </div>
-        <div>
-          <label htmlFor="role_id" className="sr-only">
-            User Role
-          </label>
-          <SelectBox data={roles} name="role_id" />
-        </div>
       </div>
 
       <div>
