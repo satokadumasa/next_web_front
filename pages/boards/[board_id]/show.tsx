@@ -69,12 +69,12 @@ const Show: NextPage<{ board: Board }> = ({
       <Header title={board.title} />
       <div className="container z-10">
         <div className="flex flex-col items-center">
-          <div className="flex h-full w-full flex-row h-full text-left break-words new-line">
+          <div className="flex h-full w-full flex-row h-full text-left break-words new-line detail">
             { nl2br(board.detail) }
           </div>
         </div>
       </div>
-      <div className="flex w-full w-1/1 pl-1 flex-row">
+      <div className="flex w-full w-1/1 pl-1 flex-row confirmBtn">
         <div className="flex w-full flex-row text-right">
             {currentUser && (
               <div className="flex m-1">

@@ -72,7 +72,7 @@ const Show: NextPage<{ note: Note }> = ({
           <div className="flex h-full w-full flex-row h-full text-left break-words new-line">
             { nl2br(note.overview) }
           </div>
-          <div className="flex h-full w-full flex-row h-full text-left break-words new-line">
+          <div className="flex h-full w-full flex-row h-full text-left break-words new-line detail">
             { nl2br(note.detail) }
           </div>
         </div>

@@ -35,3 +35,7 @@
     position: inherit;
     bottom: 0;
 }
+
+.detail {
+    padding-bottom: 100px;
+}

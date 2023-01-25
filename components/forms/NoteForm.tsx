@@ -62,6 +62,13 @@ const NoteForm: React.FC<Props> = ({ note, onSubmit, onError }) => {
           rows={5}
           ref={register({ required: true })}
           defaultValue={note?.overview}
+          onChange={(e) => {
+            console.log("detail length:" + e.target.value.length)
+            if (e.target.value.length > 2000) {
+              alert("1000文字を超えての入力はできません。")
+              e.target.value = e.target.value.substring(0, 1000)
+            }
+          }}
         />
         <small className="mb-2 text-red-600 block">
           {errors.description && <span>This field is required</span>}
@@ -75,6 +82,13 @@ const NoteForm: React.FC<Props> = ({ note, onSubmit, onError }) => {
           rows={5}
           ref={register({ required: true })}
           defaultValue={note?.detail}
+          onChange={(e) => {
+            console.log("detail length:" + e.target.value.length)
+            if (e.target.value.length > 2000) {
+              alert("2000文字を超えての入力はできません。")
+              e.target.value = e.target.value.substring(0, 2000)
+            }
+          }}
         />
         <small className="mb-2 text-red-600 block">
           {errors.description && <span>This field is required</span>}
