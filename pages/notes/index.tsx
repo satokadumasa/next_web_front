@@ -45,7 +45,7 @@ const Index: NextPage<{ notes: Note[], count: integer, page: integer, per: integ
     <Layout signedin={!!currentUser} loading={!notes} >
       <Header title="Notes" />
       {currentUser && (
-        <div className="flex flex-row justify-end z-100">
+        <div className="flex flex-row justify-end z-100 confirmBtn">
           <LinkButton href="/notes/new">New</LinkButton>
         </div>
       )}

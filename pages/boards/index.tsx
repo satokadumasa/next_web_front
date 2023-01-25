@@ -45,7 +45,7 @@ const Index: NextPage<{ boards: Board[], count: integer, page: integer, per: int
     <Layout signedin={!!currentUser} loading={!boards} >
       <Header title="Boards" />
       {currentUser && (
-        <div className="flex flex-row justify-end z-100">
+        <div className="flex flex-row justify-end z-100 confirmBtn">
           <LinkButton href="/boards/new">New</LinkButton>
         </div>
       )}

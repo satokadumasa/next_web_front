@@ -4,7 +4,7 @@
 }
 
 .confirmBtn {
-    bottom: 65px;
+    bottom: 10px;
     display: -webkit-box;
     display: flex;
     -webkit-box-orient: vertical;
@@ -28,4 +28,10 @@
 
 .new-line {
     display: inline-block;
+}
+
+.footer-main{
+    height: 50px;
+    position: inherit;
+    bottom: 0;
 }

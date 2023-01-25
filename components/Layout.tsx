@@ -71,6 +71,9 @@ export const Layout: React.FC<Props> = ({
             </div>
           </div>
         </main>
+        <div className="footer-main">
+            Copyright © 2022 Kadumasa Sat. All Rights Reserved.
+          </div>
         <Footer signedin={signedin} generatedAt={generatedAt} />
       </div>
     )
