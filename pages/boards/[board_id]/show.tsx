@@ -69,32 +69,32 @@ const Show: NextPage<{ board: Board }> = ({
       <Header title={board.title} />
       <div className="container z-10">
         <div className="flex flex-col items-center">
-          <div className="flex w-full w-1/1 pl-1 flex-row">
-            <div className="flex w-full flex-row text-right">
-                {currentUser && (
-                  <div className="flex m-1">
-                    <LinkButton href={`/boards/${board.id}/edit`}>
-                      Edit
-                    </LinkButton>
-                  </div>
-                )}
-                {currentUser && (
-                  <button
-                    className="text-sm px-4 py-1 h-10 m-1 rounded bg-black text-white text-right"
-                    onClick={onDelete}
-                  >
-                    Delete
-                  </button>
-                )}
-                <div className="flex m-1">
-                  <LinkButton href="/boards">Back</LinkButton>
-                </div>
-              </div>
-          </div>
-          <div className="flex h-full w-full flex-row h-full text-left">
+          <div className="flex h-full w-full flex-row h-full text-left break-words new-line">
             { nl2br(board.detail) }
           </div>
         </div>
+      </div>
+      <div className="flex w-full w-1/1 pl-1 flex-row">
+        <div className="flex w-full flex-row text-right">
+            {currentUser && (
+              <div className="flex m-1">
+                <LinkButton href={`/boards/${board.id}/edit`}>
+                  Edit
+                </LinkButton>
+              </div>
+            )}
+            {currentUser && (
+              <button
+                className="text-sm px-4 py-1 h-10 m-1 rounded bg-black text-white text-right"
+                onClick={onDelete}
+              >
+                Delete
+              </button>
+            )}
+            <div className="flex m-1">
+              <LinkButton href="/boards">Back</LinkButton>
+            </div>
+          </div>
       </div>
     </Layout>
   )

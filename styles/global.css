@@ -1,6 +1,6 @@
 .footer{
-    position: absolute;/*←絶対位置*/
-    bottom: 0; /*下に固定*/
+    position: fixed;
+    bottom: 0;
 }
 
 .confirmBtn {
@@ -24,4 +24,8 @@
 
 .header {
     z-index: 1;
+}
+
+.new-line {
+    display: inline-block;
 }
