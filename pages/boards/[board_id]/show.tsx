@@ -41,7 +41,9 @@ const Show: NextPage<{ board: Board }> = ({
   const deleteBoard = useDeleteBoard()
   const nl2br = require('react-nl2br')
   console.log("----------------------")
-  console.log(board)
+  console.log("board" + JSON.stringify(board))
+  console.log("currentUser" + JSON.stringify(currentUser))
+  console.log("loading" + JSON.stringify(loading))
   console.log("----------------------")
   const onSubmit = async (board) => {
     try {

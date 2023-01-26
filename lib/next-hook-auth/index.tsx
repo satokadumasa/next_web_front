@@ -145,12 +145,9 @@ export const useAuth = (redirect = false) => {
   const { data, error } = useSWR(context.config.currentUserPath, fetcher)
   const router = useRouter()
 
-  console.log("useAuth() data" + JSON.stringify(data))
+  console.log("useAuth() data:" + JSON.stringify(data))
 
   useEffect(() => {
-    // if (router.pathname === context.config.redirectPath) return;
-    // if (router.pathname === "/profile") return;
-    // if (router.pathname === "/auth/signin") return;
     if (error && redirect) router.push(context.config.redirectPath)
   }, [data, error])
 
