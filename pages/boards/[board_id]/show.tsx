@@ -9,6 +9,10 @@ import { useAuth } from '@/lib/next-hook-auth'
 import { useToasts } from 'react-toast-notifications'
 import { Board, useBoard, useUpdateBoard, useDeleteBoard } from '@/lib/client'
 import { useReplaceLnToBr } from '@/lib/util/StringUtil'
+
+import React, { useState } from 'react'
+import Modal from 'react-modal'
+
 export async function getServerSideProps(context) {
   const board_id = context.query.board_id ? context.query.board_id : 1
   const url = process.env.NEXT_PUBLIC_API_SERVER + "/boards/" + board_id
@@ -30,6 +34,16 @@ export async function getServerSideProps(context) {
   }
 }
 
+const customStyles = {
+  content: {
+    top: '50%',
+    left: '50%',
+    right: 'auto',
+    bottom: 'auto',
+    marginRight: '-50%',
+    transform: 'translate(-50%, -50%)',
+  },
+}
 
 const Show: NextPage<{ board: Board }> = ({
   board
@@ -66,6 +80,21 @@ const Show: NextPage<{ board: Board }> = ({
     router.push('/boards')
   }
 
+  let subtitle: HTMLHeadingElement | null
+  const [modalIsOpen, setIsOpen] = useState<boolean>(false)
+
+  function openModal() {
+    setIsOpen(true)
+  }
+
+  function afterOpenModal() {
+    if (subtitle) subtitle.style.color = '#f00'
+  }
+
+  function closeModal() {
+    setIsOpen(false)
+  }
+
   return (
     <Layout signedin={!!currentUser} loading={loading}>
       <Header title={board.title} />
@@ -76,8 +105,34 @@ const Show: NextPage<{ board: Board }> = ({
           </div>
         </div>
       </div>
+      <Modal
+        contentLabel="Example Modal"
+        isOpen={modalIsOpen}
+        style={customStyles}
+        onAfterOpen={afterOpenModal}
+        onRequestClose={closeModal}
+      >
+        <h2 ref={(_subtitle) => (subtitle = _subtitle)}>Hello</h2>
+        <button onClick={closeModal}>close</button>
+        <div>I am a modal</div>
+        <form>
+          <input />
+          <button>tab navigation</button>
+          <button>stays</button>
+          <button>inside</button>
+          <button>the modal</button>
+        </form>
+      </Modal>
       <div className="flex w-full w-1/1 pl-1 flex-row confirmBtn">
         <div className="flex w-full flex-row text-right">
+            <div className="flex m-1">
+              <button 
+                className="text-sm px-4 py-1 h-10 m-1 rounded bg-black text-white text-right"
+                onClick={openModal}
+              >
+                Comment
+              </button>
+            </div>
             {currentUser && (
               <div className="flex m-1">
                 <LinkButton href={`/boards/${board.id}/edit`}>
