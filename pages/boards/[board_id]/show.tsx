@@ -7,11 +7,15 @@ import Header from '@/components/Haeder'
 import LinkButton from '@/components/LinkButton'
 import { useAuth } from '@/lib/next-hook-auth'
 import { useToasts } from 'react-toast-notifications'
-import { Board, useBoard, useUpdateBoard, useDeleteBoard } from '@/lib/client'
+import { Board, BoardComment, useBoard, useDeleteBoard, useCreateBoardComment } from '@/lib/client'
 import { useReplaceLnToBr } from '@/lib/util/StringUtil'
 
 import React, { useState } from 'react'
 import Modal from 'react-modal'
+import BoardCommentForm from '@/components/forms/BoardCommentForm'
+
+import { parseISO, format } from 'date-fns'
+import ja from 'date-fns/locale/ja'
 
 export async function getServerSideProps(context) {
   const board_id = context.query.board_id ? context.query.board_id : 1
@@ -24,12 +28,14 @@ export async function getServerSideProps(context) {
       notFound: true,
     }
   }
-  console.log("----------------------")
-  console.log(data)
-  console.log("----------------------")
+  console.log("------------------------------------------------------------------")
+  console.log("data:" + JSON.stringify(data))
+  console.log("------------------------------------------------------------------")
   return {
     props: {
-      board: data,
+      // board: data,
+      board: data.board,
+      board_comments: data.board_comments,
     },
   }
 }
@@ -45,25 +51,32 @@ const customStyles = {
   },
 }
 
-const Show: NextPage<{ board: Board }> = ({
-  board
+const Show: NextPage<{ board: Board,board_comment: BoardCommen, board_comments: BoardCommen[]}> = ({
+// const Show: NextPage<{ board: Board,board_comment: BoardCommen}> = ({
+  board,
+  board_comment,
+  board_comments
 }) => {
   const { currentUser, loading } = useAuth(true)
   const { addToast } = useToasts()
   const router = useRouter()
-  const update = useUpdateBoard()
+  const create = useCreateBoardComment()
   const deleteBoard = useDeleteBoard()
   const nl2br = require('react-nl2br')
+  const format = require('date-fns/format');
+
   console.log("----------------------")
-  console.log("board" + JSON.stringify(board))
-  console.log("currentUser" + JSON.stringify(currentUser))
-  console.log("loading" + JSON.stringify(loading))
+  console.log("board: " + JSON.stringify(board))
+  console.log("board_comments: " + JSON.stringify(board_comments))
+  console.log("currentUser: " + JSON.stringify(currentUser))
+  console.log("loading: " + JSON.stringify(loading))
   console.log("----------------------")
-  const onSubmit = async (board) => {
+  const onSubmit = async (board_comment) => {
     try {
-      update(Number(router.query.board_id), board)
+      create(board_comment)
       addToast('Saved Successfully', { appearance: 'success' })
-      router.push('/boards')
+      closeModal()
+      router.push('/boards/' + router.query.board_id + '/show')
     } catch (e) {
       addToast(e.message, { appearance: 'error' })
     }
@@ -95,63 +108,83 @@ const Show: NextPage<{ board: Board }> = ({
     setIsOpen(false)
   }
 
+  function convDate(datetime) {
+    let arr = datetime.split('T')
+    let date = arr[0]
+    let arr2 = arr[1].split('.')
+    let time = arr2[0]
+    datetime = date + " " + time
+    return datetime
+  }
   return (
     <Layout signedin={!!currentUser} loading={loading}>
-      <Header title={board.title} />
       <div className="container z-10">
-        <div className="flex flex-col items-center">
-          <div className="flex h-full w-full flex-row h-full text-left break-words new-line detail">
-            { nl2br(board.detail) }
+        <Header title={board.title} />
+        <div className=" z-10">
+          <div className="flex flex-col items-center">
+            <div className="flex h-full w-full flex-row h-full text-left break-words new-line detail">
+              { nl2br(board.detail) }
+            </div>
           </div>
         </div>
+        {board_comments?.map((comment) => (
+          <div
+            key={comment.id}
+            className="flex flex-wrap w-full flex-row z-100"
+          >
+            <div className="flex w-3/4 pl-1 flex-col title">
+              「{ comment.title }」<br></br>
+              { convDate(comment.created_at)}
+            </div>
+            <div className="flex h-full w-full flex-row h-full text-left break-words new-line detail">
+              { nl2br(comment.detail) }
+            </div>
+          </div>
+        ))}
       </div>
+
       <Modal
-        contentLabel="Example Modal"
+        contentLabel="コメント"
         isOpen={modalIsOpen}
         style={customStyles}
         onAfterOpen={afterOpenModal}
         onRequestClose={closeModal}
       >
-        <h2 ref={(_subtitle) => (subtitle = _subtitle)}>Hello</h2>
+        <h2 ref={(_subtitle) => (subtitle = _subtitle)}>{board.title}</h2>
         <button onClick={closeModal}>close</button>
         <div>I am a modal</div>
-        <form>
-          <input />
-          <button>tab navigation</button>
-          <button>stays</button>
-          <button>inside</button>
-          <button>the modal</button>
-        </form>
+        <BoardCommentForm onSubmit={onSubmit} board={board} board_comment={board_comment} currentUser={currentUser} onError={onError} />
       </Modal>
+
       <div className="flex w-full w-1/1 pl-1 flex-row confirmBtn">
         <div className="flex w-full flex-row text-right">
+          {currentUser && (
+            <button
+              className="text-sm px-4 py-1 h-10 m-1 rounded bg-black text-white text-right"
+              onClick={onDelete}
+            >
+              Delete
+            </button>
+          )}
+          {currentUser && (
             <div className="flex m-1">
-              <button 
-                className="text-sm px-4 py-1 h-10 m-1 rounded bg-black text-white text-right"
-                onClick={openModal}
-              >
-                Comment
-              </button>
+              <LinkButton href={`/boards/${board.id}/edit`}>
+                Edit
+              </LinkButton>
             </div>
-            {currentUser && (
-              <div className="flex m-1">
-                <LinkButton href={`/boards/${board.id}/edit`}>
-                  Edit
-                </LinkButton>
-              </div>
-            )}
-            {currentUser && (
-              <button
-                className="text-sm px-4 py-1 h-10 m-1 rounded bg-black text-white text-right"
-                onClick={onDelete}
-              >
-                Delete
-              </button>
-            )}
-            <div className="flex m-1">
-              <LinkButton href="/boards">Back</LinkButton>
-            </div>
+          )}
+          <div className="flex m-1">
+            <button 
+              className="text-sm px-4 py-1 h-10 m-1 rounded bg-black text-white text-right"
+              onClick={openModal}
+            >
+              Comment
+            </button>
           </div>
+          <div className="flex m-1">
+            <LinkButton href="/boards">Back</LinkButton>
+          </div>
+        </div>
       </div>
     </Layout>
   )

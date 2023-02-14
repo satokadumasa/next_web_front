@@ -11,7 +11,6 @@ export type Board = {
   updated_at: datetime
 }
 
-
 export const useBoards = (): { boards: Board[]; error: any } => {
   const fetcher = () => axios.get('/boards').then((res) => res.data)
   const { data, error } = useSWR('/boards', fetcher)
