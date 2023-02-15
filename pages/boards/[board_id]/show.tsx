@@ -47,6 +47,8 @@ const customStyles = {
     right: 'auto',
     bottom: 'auto',
     marginRight: '-50%',
+    width: '90%',
+    height: '80%',
     transform: 'translate(-50%, -50%)',
   },
 }
@@ -118,9 +120,9 @@ const Show: NextPage<{ board: Board,board_comment: BoardCommen, board_comments: 
   }
   return (
     <Layout signedin={!!currentUser} loading={loading}>
-      <div className="container z-10">
+      <div className="content z-1">
         <Header title={board.title} />
-        <div className=" z-10">
+        <div className="z-10">
           <div className="flex flex-col items-center">
             <div className="flex h-full w-full flex-row h-full text-left break-words new-line detail">
               { nl2br(board.detail) }
@@ -130,7 +132,7 @@ const Show: NextPage<{ board: Board,board_comment: BoardCommen, board_comments: 
         {board_comments?.map((comment) => (
           <div
             key={comment.id}
-            className="flex flex-wrap w-full flex-row z-100"
+            className="flex flex-wrap w-full flex-row z-1"
           >
             <div className="flex w-3/4 pl-1 flex-col title">
               「{ comment.title }」<br></br>

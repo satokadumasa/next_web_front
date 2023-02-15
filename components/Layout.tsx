@@ -49,7 +49,7 @@ export const Layout: React.FC<Props> = ({
       <div className="flex flex-col min-h-screen">
         <main className="flex-grow">
           <Navbar />
-          <div className="container mx-auto content">
+          <div className="mx-auto">
             <div className="max-w-7xl mx-auto sm:px-6 lg:px-8 pb-4">
               <div className="px-4 sm:px-0">
                 <AlertMessage />
@@ -65,7 +65,7 @@ export const Layout: React.FC<Props> = ({
       <div className="flex flex-col min-h-screen">
         <main className="flex-grow">
           <Navbar />
-          <div className="container mx-auto content">
+          <div className="container mx-auto">
             <div className="max-w-7xl mx-auto sm:px-6 lg:px-8 pb-4">
               <div className="px-4 sm:px-0">{children}</div>
             </div>
