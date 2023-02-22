@@ -32,7 +32,7 @@ const Edit: React.FC = () => {
   return (
     <Layout signedin={!!currentUser} loading={loading} error={error}>
       <Header title="Edit Board" />
-      <BoardForm onSubmit={onSubmit} board={board} currentUser={currentUser} onError={onError} />
+      <BoardForm onSubmit={onSubmit} board={board.board} currentUser={currentUser} onError={onError} />
     </Layout>
   )
 }

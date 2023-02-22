@@ -17,10 +17,18 @@
     right: 0;
 }
 
+.content-header {
+    margin-top: 50px;
+}
+
 .content {
     position: relative;
     top: 70px;
     margin-bottom: 160px;
+}
+
+.content-footer {
+    margin-bottom: 80px;
 }
 
 .header {
@@ -40,7 +48,7 @@
 .detail {
     padding-bottom: 10px;
     margin-bottom: 10px;
-    background: aliceblue;
+    background: #fafbfc;
 }
 
 .title {

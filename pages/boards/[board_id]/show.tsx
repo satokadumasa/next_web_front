@@ -54,7 +54,6 @@ const customStyles = {
 }
 
 const Show: NextPage<{ board: Board,board_comment: BoardCommen, board_comments: BoardCommen[]}> = ({
-// const Show: NextPage<{ board: Board,board_comment: BoardCommen}> = ({
   board,
   board_comment,
   board_comments
@@ -120,8 +119,11 @@ const Show: NextPage<{ board: Board,board_comment: BoardCommen, board_comments: 
   }
   return (
     <Layout signedin={!!currentUser} loading={loading}>
-      <div className="content z-1">
+      <div className="z-1">
         <Header title={board.title} />
+        <div>
+        Author[{ board.user.nickname}]
+        </div>
         <div className="z-10">
           <div className="flex flex-col items-center">
             <div className="flex h-full w-full flex-row h-full text-left break-words new-line detail">
@@ -136,6 +138,7 @@ const Show: NextPage<{ board: Board,board_comment: BoardCommen, board_comments: 
           >
             <div className="flex w-3/4 pl-1 flex-col title">
               「{ comment.title }」<br></br>
+              Author[{ comment.user.nickname }]<br></br>
               { convDate(comment.created_at)}
             </div>
             <div className="flex h-full w-full flex-row h-full text-left break-words new-line detail">
@@ -143,6 +146,7 @@ const Show: NextPage<{ board: Board,board_comment: BoardCommen, board_comments: 
             </div>
           </div>
         ))}
+        <div className="content-footer"></div>
       </div>
 
       <Modal
@@ -154,7 +158,6 @@ const Show: NextPage<{ board: Board,board_comment: BoardCommen, board_comments: 
       >
         <h2 ref={(_subtitle) => (subtitle = _subtitle)}>{board.title}</h2>
         <button onClick={closeModal}>close</button>
-        <div>I am a modal</div>
         <BoardCommentForm onSubmit={onSubmit} board={board} board_comment={board_comment} currentUser={currentUser} onError={onError} />
       </Modal>
 
