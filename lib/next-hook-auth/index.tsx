@@ -3,6 +3,7 @@ import { useRouter } from 'next/router'
 import axios from '@/lib/axios'
 import useSWR, { mutate } from 'swr'
 import customAxios from '@/lib/customAxios'
+import { atom } from 'recoil';
 
 export type Props = {
   currentUserPath: string
@@ -11,6 +12,25 @@ export type Props = {
   signupPath: string
   redirectPath: string
   resourceName: string
+}
+
+// export type User = {
+//   id: number
+//   createdAt: string
+//   updatedAt: string
+// }
+
+export type User = {
+	id: number
+	provider:string
+	uid: string
+	allow_password_change: boolean
+	name: string
+	nickname: string
+	image: string
+	email: string
+	created_at: string
+	updated_at: string
 }
 
 export type AuthContext = {
@@ -76,9 +96,11 @@ export const useSignin = () => {
 }
 
 export const useSignout = () => {
-  console.log("useSignout()")
+  console.log(">>>>useSignout()")
   const context = useContext(AuthContext)
   return async () => {
+    console.log(">>>>useSignout() (2)")
+
     await customAxios.get(context.config.currentUserPath)
     await customAxios.delete(context.config.signoutPath)
     localStorage.setItem('next-hook-auth', 'signout')
@@ -115,18 +137,13 @@ export const useSignup = () => {
   }
 }
 
-export type User = {
-  id: number
-  createdAt: string
-  updatedAt: string
-}
-
 export const useAuth = (redirect = false) => {
   console.log("useAuth()")
   const context = useContext(AuthContext)
   let status = ""
+  const uid = ""
+  let user = {}
   const fetcher = () => {
-    console.log("access-token:" + localStorage.getItem('access-token'))
     if (localStorage.getItem('access-token') == 'undefined') {
       console.log("useAuth() fails")
       throw Error('Unauthorized')
@@ -137,19 +154,25 @@ export const useAuth = (redirect = false) => {
         res.status === 401 ? 'signout' : 'signin'
       )
       status = res.status
-      console.log("res.status:" + status)
-      console.log("next-hook-auth:" + localStorage.getItem('next-hook-auth'))
+      user = res.data
+      sessionStorage.setItem(
+        'user',
+        res.status === 401 ? null : JSON.stringify(user)
+      )
+      console.log("useAuth() CH-02 user:" + JSON.stringify(user))
       return res.data
     })
   }
   const { data, error } = useSWR(context.config.currentUserPath, fetcher)
   const router = useRouter()
 
-  console.log("useAuth() data:" + JSON.stringify(data))
+  console.log("useAuth() CH-01:")
 
   useEffect(() => {
     if (error && redirect) router.push(context.config.redirectPath)
   }, [data, error])
+  // let datum = JSON.parse(JSON.stringify(data))
+  // console.log("useAuth() CH-03 data:" + datum.id)
 
   return {
     currentUser: !error,

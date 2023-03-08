@@ -7,14 +7,15 @@ import Header from '@/components/Haeder'
 import LinkButton from '@/components/LinkButton'
 import { useAuth } from '@/lib/next-hook-auth'
 import { useToasts } from 'react-toast-notifications'
-import { Board, BoardComment, useBoard, useDeleteBoard, useCreateBoardComment } from '@/lib/client'
+import { User, Board, BoardComment, useBoard, useDeleteBoard, useCreateBoardComment, useMe } from '@/lib/client'
 import { useReplaceLnToBr } from '@/lib/util/StringUtil'
 
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Modal from 'react-modal'
 import BoardCommentForm from '@/components/forms/BoardCommentForm'
+import customAxios from '@/lib/customAxios'
 
-import { parseISO, format } from 'date-fns'
+// import { parseISO, format } from 'date-fns'
 import ja from 'date-fns/locale/ja'
 
 export async function getServerSideProps(context) {
@@ -23,17 +24,15 @@ export async function getServerSideProps(context) {
   const res = await fetch(url)
   const data = await res.json()
   const nl2br = require('react-nl2br')
+
   if (!data) {
     return {
       notFound: true,
     }
   }
-  console.log("------------------------------------------------------------------")
-  console.log("data:" + JSON.stringify(data))
-  console.log("------------------------------------------------------------------")
+
   return {
     props: {
-      // board: data,
       board: data.board,
       board_comments: data.board_comments,
     },
@@ -53,30 +52,26 @@ const customStyles = {
   },
 }
 
-const Show: NextPage<{ board: Board,board_comment: BoardCommen, board_comments: BoardCommen[]}> = ({
+const Show: NextPage<{board: Board,board_comment: BoardCommen, board_comments: BoardCommen[],loading: boolean}> = ({
   board,
   board_comment,
   board_comments
 }) => {
-  const { currentUser, loading } = useAuth(true)
+  const { currentUser, loading} = useAuth(true)
   const { addToast } = useToasts()
   const router = useRouter()
   const create = useCreateBoardComment()
   const deleteBoard = useDeleteBoard()
   const nl2br = require('react-nl2br')
-  const format = require('date-fns/format');
+  const [tag, setTag] = useState('');
+  const [initialLoad, setInitialLoad] = useState(true);
 
-  console.log("----------------------")
-  console.log("board: " + JSON.stringify(board))
-  console.log("board_comments: " + JSON.stringify(board_comments))
-  console.log("currentUser: " + JSON.stringify(currentUser))
-  console.log("loading: " + JSON.stringify(loading))
-  console.log("----------------------")
   const onSubmit = async (board_comment) => {
     try {
       create(board_comment)
       addToast('Saved Successfully', { appearance: 'success' })
       closeModal()
+      console.log("boards::show::onSubmit() :" + router.query.board_id)
       router.push('/boards/' + router.query.board_id + '/show')
     } catch (e) {
       addToast(e.message, { appearance: 'error' })
@@ -117,6 +112,11 @@ const Show: NextPage<{ board: Board,board_comment: BoardCommen, board_comments: 
     datetime = date + " " + time
     return datetime
   }
+
+  useEffect(() => {
+    const user = sessionStorage.getItem('user')
+    console.log("User:" + user)
+  }, [tag])
   return (
     <Layout signedin={!!currentUser} loading={loading}>
       <div className="z-1">
