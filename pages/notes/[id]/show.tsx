@@ -1,4 +1,3 @@
-// import React from 'react'
 import { NextPage } from 'next'
 import { useRouter } from 'next/router'
 import Layout from '@/components/Layout'
@@ -26,9 +25,7 @@ export async function getServerSideProps(context) {
       notFound: true,
     }
   }
-  console.log("----------------------")
-  console.log(data)
-  console.log("----------------------")
+
   return {
     props: {
       // note: data,
