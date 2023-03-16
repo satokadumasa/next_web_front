@@ -84,9 +84,9 @@ const PageForm: React.FC<Props> = ({ note, page, onSubmit, onError }) => {
           defaultValue={page?.overview}
           onChange={(e) => {
             console.log("detail length:" + e.target.value.length)
-            if (e.target.value.length > 2000) {
-              alert("1000文字を超えての入力はできません。")
-              e.target.value = e.target.value.substring(0, 1000)
+            if (e.target.value.length > 1024) {
+              alert("1024文字を超えての入力はできません。")
+              e.target.value = e.target.value.substring(0, 1024)
             }
           }}
         />
@@ -104,9 +104,9 @@ const PageForm: React.FC<Props> = ({ note, page, onSubmit, onError }) => {
           defaultValue={page?.detail}
           onChange={(e) => {
             console.log("detail length:" + e.target.value.length)
-            if (e.target.value.length > 2000) {
-              alert("2000文字を超えての入力はできません。")
-              e.target.value = e.target.value.substring(0, 2000)
+            if (e.target.value.length > 2048) {
+              alert("2048文字を超えての入力はできません。")
+              e.target.value = e.target.value.substring(0, 2048)
             }
           }}
         />

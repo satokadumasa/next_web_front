@@ -22,7 +22,6 @@ export async function getServerSideProps(context) {
   return {
     props: {
       note: data.note,
-      pages: data.pages,
     },
   }
 }

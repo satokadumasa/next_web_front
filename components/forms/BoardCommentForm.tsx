@@ -75,9 +75,9 @@ const BoardCommentForm: React.FC<Props> = ({ board, board_comment, onSubmit, onE
           defaultValue={board_comment?.detail}
           onChange={(e) => {
             console.log("detail length:" + e.target.value.length)
-            if (e.target.value.length > 2000) {
-              alert("1000文字を超えての入力はできません。")
-              e.target.value = e.target.value.substring(0, 1000)
+            if (e.target.value.length > 1024) {
+              alert("1024文字を超えての入力はできません。")
+              e.target.value = e.target.value.substring(0, 1024)
             }
           }}
         />

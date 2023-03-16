@@ -172,13 +172,13 @@ const Show: NextPage<{board: Board,board_comment: BoardCommen, board_comments: B
             </button>
           )}
           {currentUser && (
-            <div className="flex m-1">
+            <div className="flex w-full flex-row text-right">
               <LinkButton href={`/boards/${board.id}/edit`}>
                 Edit
               </LinkButton>
             </div>
           )}
-          <div className="flex m-1">
+          <div className="flex w-full flex-row text-right">
             <button 
               className="text-sm px-4 py-1 h-10 m-1 rounded bg-black text-white text-right"
               onClick={openModal}
@@ -186,7 +186,7 @@ const Show: NextPage<{board: Board,board_comment: BoardCommen, board_comments: B
               Comment
             </button>
           </div>
-          <div className="flex m-1">
+          <div className="flex w-full flex-row text-right">
             <LinkButton href="/boards">Back</LinkButton>
           </div>
         </div>
