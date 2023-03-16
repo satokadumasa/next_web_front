@@ -64,7 +64,10 @@ const Show: NextPage<{board: Board,board_comment: BoardCommen, board_comments: B
   const deleteBoard = useDeleteBoard()
   const nl2br = require('react-nl2br')
   const [tag, setTag] = useState('');
+  const [isShow, setShow] = useState('');
   const [initialLoad, setInitialLoad] = useState(true);
+  let subtitle: HTMLHeadingElement | null
+  const [modalIsOpen, setIsOpen] = useState<boolean>(false)
 
   const onSubmit = async (board_comment) => {
     try {
@@ -89,9 +92,6 @@ const Show: NextPage<{board: Board,board_comment: BoardCommen, board_comments: B
     router.push('/boards')
   }
 
-  let subtitle: HTMLHeadingElement | null
-  const [modalIsOpen, setIsOpen] = useState<boolean>(false)
-
   function openModal() {
     setIsOpen(true)
   }
@@ -114,15 +114,18 @@ const Show: NextPage<{board: Board,board_comment: BoardCommen, board_comments: B
   }
 
   useEffect(() => {
-    const user = sessionStorage.getItem('user')
-    console.log("User:" + user)
+    console.log("useEffect user " + JSON.stringify(localStorage.user))
+    const user = JSON.parse(localStorage.user)
+    setShow(board.user.id == user.id ? true : false)
+    console.log("useEffect isShow " + isShow)
   }, [tag])
+
   return (
     <Layout signedin={!!currentUser} loading={loading}>
       <div className="z-1">
         <Header title={board.title} />
         <div>
-        Author[{ board.user.nickname}]
+        Author[{ board.user.nickname}][ { isShow } ]
         </div>
         <div className="z-10">
           <div className="flex flex-col items-center">
@@ -163,7 +166,7 @@ const Show: NextPage<{board: Board,board_comment: BoardCommen, board_comments: B
 
       <div className="flex w-full w-1/1 pl-1 flex-row confirmBtn">
         <div className="flex w-full flex-row text-right">
-          {currentUser && (
+          {(currentUser && isShow) && (
             <button
               className="text-sm px-4 py-1 h-10 m-1 rounded bg-black text-white text-right"
               onClick={onDelete}
@@ -171,7 +174,7 @@ const Show: NextPage<{board: Board,board_comment: BoardCommen, board_comments: B
               Delete
             </button>
           )}
-          {currentUser && (
+          {(currentUser && isShow) && (
             <div className="flex w-full flex-row text-right">
               <LinkButton href={`/boards/${board.id}/edit`}>
                 Edit

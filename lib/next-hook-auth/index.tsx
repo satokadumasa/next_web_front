@@ -166,13 +166,11 @@ export const useAuth = (redirect = false) => {
   const { data, error } = useSWR(context.config.currentUserPath, fetcher)
   const router = useRouter()
 
-  console.log("useAuth() CH-01:")
-
   useEffect(() => {
-    if (error && redirect) router.push(context.config.redirectPath)
+    if (error && redirect) {
+      router.push(context.config.redirectPath)
+    }
   }, [data, error])
-  // let datum = JSON.parse(JSON.stringify(data))
-  // console.log("useAuth() CH-03 data:" + datum.id)
 
   return {
     currentUser: !error,
