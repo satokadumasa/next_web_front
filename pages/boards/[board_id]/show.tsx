@@ -63,8 +63,8 @@ const Show: NextPage<{board: Board,board_comment: BoardCommen, board_comments: B
   const create = useCreateBoardComment()
   const deleteBoard = useDeleteBoard()
   const nl2br = require('react-nl2br')
-  const [tag, setTag] = useState('');
-  const [isShow, setShow] = useState('');
+  const [tag, setTag] = useState('')
+  const [isShow, setShow] = useState('')
   const [initialLoad, setInitialLoad] = useState(true);
   let subtitle: HTMLHeadingElement | null
   const [modalIsOpen, setIsOpen] = useState<boolean>(false)
@@ -117,7 +117,6 @@ const Show: NextPage<{board: Board,board_comment: BoardCommen, board_comments: B
     console.log("useEffect user " + JSON.stringify(localStorage.user))
     const user = JSON.parse(localStorage.user)
     setShow(board.user.id == user.id ? true : false)
-    console.log("useEffect isShow " + isShow)
   }, [tag])
 
   return (

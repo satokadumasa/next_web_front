@@ -9,7 +9,7 @@ import { useToasts } from 'react-toast-notifications'
 import { Note, useNote, useUpdateNote, useDeleteNote, useCreatePage} from '@/lib/client'
 import { useReplaceLnToBr } from '@/lib/util/StringUtil'
 
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Modal from 'react-modal'
 import PageForm from '@/components/forms/PageForm'
 
@@ -60,10 +60,10 @@ const Show: NextPage<{ note: Note, page: Page, pages: Page[] }> = ({
   const update = useUpdateNote()
   const deleteNote = useDeleteNote()
   const nl2br = require('react-nl2br')
+  const [tag, setTag] = useState('')
+  const [isShow, setShow] = useState('')
   const [modalIsOpen, setIsOpen] = useState<boolean>(false)
-  console.log("-------------------")
-  console.log(note)
-  console.log("-------------------")
+
   let subtitle: HTMLHeadingElement | null
   const onSubmit = async (page) => {
     try {
@@ -107,6 +107,12 @@ const Show: NextPage<{ note: Note, page: Page, pages: Page[] }> = ({
     datetime = date + " " + time
     return datetime
   }
+
+  useEffect(() => {
+    console.log("useEffect user " + JSON.stringify(localStorage.user))
+    const user = JSON.parse(localStorage.user)
+    setShow(note.user.id == user.id ? true : false)
+  }, [tag])
 
   return (
     <Layout signedin={!!currentUser} loading={loading}>
@@ -152,14 +158,14 @@ const Show: NextPage<{ note: Note, page: Page, pages: Page[] }> = ({
 
       <div className="flex w-full w-1/1 pl-1 flex-row confirmBtn">
         <div className="flex w-full flex-row text-right">
-            {currentUser && (
+            {(currentUser && isShow) && (
               <div className="flex m-1">
                 <LinkButton href={`/notes/${note.id}/edit`}>
                   Edit
                 </LinkButton>
               </div>
             )}
-            {currentUser && (
+            {(currentUser && isShow) && (
               <button
                 className="text-sm px-4 py-1 h-10 m-1 rounded bg-black text-white text-right"
                 onClick={onDelete}

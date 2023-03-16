@@ -14,12 +14,6 @@ export type Props = {
   resourceName: string
 }
 
-// export type User = {
-//   id: number
-//   createdAt: string
-//   updatedAt: string
-// }
-
 export type User = {
 	id: number
 	provider:string
