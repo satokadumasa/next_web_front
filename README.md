@@ -10,7 +10,7 @@ vi .env.local
 yarn install
 yarn dev
 ```
-Use with weed_api(https://github.com/satokadumasa/weed_api)
+Use with weed_api(https://github.com/satokadumasa/next_web__api)
 
 
 ■ create or edit session_store.rb
