@@ -16,10 +16,10 @@ Use with weed_api(https://github.com/satokadumasa/weed_api)
 ■ create or edit session_store.rb
 ```bash
 $> vi config/initializers/session_store.rb
-```
 
 if Rails.env === 'production'
   Rails.application.config.session_store :cookie_store, key: '_auth-app-api', domain: 'www.hogehoge.com'
 else
   Rails.application.config.session_store :cookie_store, key: '_auth-app-api', domain: 'next_front.example.com'
 end
+```
