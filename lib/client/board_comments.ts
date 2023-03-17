@@ -5,11 +5,15 @@ import customAxios from '@/lib/customAxios'
 export type BoardComment = {
   id: number
   user_id: number
-  board_comment_id: number
+  board_id: number
   title: string
-  detil: string
-  created_at: datetime
-  updated_at: datetime
+  detail: string
+  created_at: string
+  updated_at: string
+  user: {
+    id: number
+    nickname: string
+  }
 }
 
 export const useBoardComments = (): { board_comments: BoardComment[]; error: any } => {

@@ -52,7 +52,7 @@ const customStyles = {
   },
 }
 
-const Show: NextPage<{board: Board,board_comment: BoardCommen, board_comments: BoardCommen[],loading: boolean}> = ({
+const Show: NextPage<{board: Board,board_comment: BoardComment, board_comments: BoardComment[],loading: boolean}> = ({
   board,
   board_comment,
   board_comments
@@ -64,7 +64,7 @@ const Show: NextPage<{board: Board,board_comment: BoardCommen, board_comments: B
   const deleteBoard = useDeleteBoard()
   const nl2br = require('react-nl2br')
   const [tag, setTag] = useState('')
-  const [isShow, setShow] = useState('')
+  const [isShow, setShow] = useState(false)
   const [initialLoad, setInitialLoad] = useState(true);
   let subtitle: HTMLHeadingElement | null
   const [modalIsOpen, setIsOpen] = useState<boolean>(false)
@@ -116,7 +116,8 @@ const Show: NextPage<{board: Board,board_comment: BoardCommen, board_comments: B
   useEffect(() => {
     console.log("useEffect user " + JSON.stringify(localStorage.user))
     const user = JSON.parse(localStorage.user)
-    setShow(board.user.id == user.id ? true : false)
+    const show = board.user_id == user.id ? true : false
+    setShow(show)
   }, [tag])
 
   return (
@@ -160,7 +161,7 @@ const Show: NextPage<{board: Board,board_comment: BoardCommen, board_comments: B
       >
         <h2 ref={(_subtitle) => (subtitle = _subtitle)}>{board.title}</h2>
         <button onClick={closeModal}>close</button>
-        <BoardCommentForm onSubmit={onSubmit} board={board} board_comment={board_comment} currentUser={currentUser} onError={onError} />
+        <BoardCommentForm onSubmit={onSubmit} board={board} board_comment={board_comment} onError={onError} />
       </Modal>
 
       <div className="flex w-full w-1/1 pl-1 flex-row confirmBtn">

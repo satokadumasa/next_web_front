@@ -4,27 +4,28 @@ import { useDropzone } from 'react-dropzone'
 import { useRouter } from 'next/router'
 import LinkButton from '@/components/LinkButton'
 import axios from '@/lib/axios'
+import { Note, Page } from '@/lib/client'
 
-type Note = {
-  id: number
-  user_id: number
-  title: string
-  overview: string
-  detil: string
-  created_at: datetime
-  updated_at: datetime
-}
+// type Note = {
+//   id: number
+//   user_id: number
+//   title: string
+//   overview: string
+//   detail: string
+//   created_at: string
+//   updated_at: string
+// }
 
-type Page = {
-  id: number
-  user_id: number
-  note_id: number
-  title: string
-  overview: string
-  detil: string
-  created_at: datetime
-  updated_at: datetime
-}
+// type Page = {
+//   id: number
+//   user_id: number
+//   note_id: number
+//   title: string
+//   overview: string
+//   detail: string
+//   created_at: string
+//   updated_at: string
+// }
 
 type Props = {
   note?: Note
@@ -34,7 +35,7 @@ type Props = {
 }
 
 const PageForm: React.FC<Props> = ({ note, page, onSubmit, onError }) => {
-  const [imageKey, setImageKey] = useState(page?.key)
+  // const [imageKey, setImageKey] = useState(page?.key)
   const { register, handleSubmit, errors } = useForm()
   const router = useRouter()
   const onBack = async () => {

@@ -25,19 +25,6 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:site" content="@susanoo" />
         <meta name="twitter:player" content="@susanoo" />
-        <style tsx>{`
-        .header {
-          position: fixed;
-          top: 0;
-          width: 100%;
-        }
-        .footer {
-          position: fixed;
-          bottom: 0;
-          width: 100%;
-        }
-        `}
-        </style>
       </Head>
       <AuthProvider
         signinPath="/auth/sign_in"

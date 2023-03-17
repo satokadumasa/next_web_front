@@ -34,7 +34,7 @@ const New: React.FC = () => {
       <div className="flex flex-row justify-end mb-4">
         <LinkButton href="/boards">Back</LinkButton>
       </div>
-      <BoardForm onSubmit={onSubmit} currentUser={currentUser} onError={onError} />
+      <BoardForm onSubmit={onSubmit} onError={onError} />
     </Layout>
   )
 }

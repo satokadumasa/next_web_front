@@ -3,7 +3,7 @@ import { useRouter } from 'next/router'
 import axios from '@/lib/axios'
 import useSWR, { mutate } from 'swr'
 import customAxios from '@/lib/customAxios'
-import { atom } from 'recoil';
+// import { atom } from 'recoil';
 
 export type Props = {
   currentUserPath: string
@@ -134,7 +134,7 @@ export const useSignup = () => {
 export const useAuth = (redirect = false) => {
   console.log("useAuth()")
   const context = useContext(AuthContext)
-  let status = ""
+  let status = {}
   const uid = ""
   let user = {}
   const fetcher = () => {

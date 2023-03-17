@@ -6,9 +6,12 @@ export type Board = {
   id: number
   user_id: number
   title: string
-  detil: string
-  created_at: datetime
-  updated_at: datetime
+  detail: string
+  created_at: string
+  updated_at: string
+  user: {
+    nickname: string
+  }
 }
 
 export const useBoards = (): { boards: Board[]; error: any } => {

@@ -9,8 +9,12 @@ export type Page = {
   title: string
   overview: string
   detail: string
-  created_at: datetime
-  updated_at: datetime
+  created_at: string
+  updated_at: string
+  user: {
+    id: number
+    nickname: string
+  }
 }
 
 export const usePages = (): { pages: Page[]; error: any } => {

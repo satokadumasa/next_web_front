@@ -31,7 +31,7 @@ export async function getServerSideProps(context) {
   }
 }
 
-const Index: NextPage<{ boards: Board[], count: integer, page: integer, per: integer }> = ({
+const Index: NextPage<{ boards: Board[], count: number, page: number, per: number }> = ({
   boards,
   count,
   page,

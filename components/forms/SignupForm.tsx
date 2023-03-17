@@ -3,15 +3,12 @@ import Select from "react-select";
 import { useForm } from 'react-hook-form'
 import { useToasts } from 'react-toast-notifications'
 import { SignupParams } from '@/lib/next-hook-auth'
-import { Role, useRoles } from '@/lib/client'
-import SelectBox from '@/components/SelectBox'
 
 type Props = {
   signup: (SignupParams) => void
-  roles: Role[]
 }
 
-const SignupForm: React.FC<Props> = ({ signup, roles }) => {
+const SignupForm: React.FC<Props> = ({ signup }) => {
   const { register, handleSubmit, errors } = useForm()
   const { addToast } = useToasts()
 

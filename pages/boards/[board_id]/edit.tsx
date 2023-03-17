@@ -53,7 +53,7 @@ const Edit: NextPage<{board: Board,loading: boolean}> = ({
   return (
     <Layout signedin={!!currentUser} loading={loading}>
       <Header title="Edit Board" />
-      <BoardForm onSubmit={onSubmit} board={board} currentUser={currentUser} onError={onError} />
+      <BoardForm onSubmit={onSubmit} board={board} onError={onError} />
     </Layout>
   )
 }

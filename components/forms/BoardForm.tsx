@@ -4,16 +4,16 @@ import { useDropzone } from 'react-dropzone'
 import { useRouter } from 'next/router'
 import LinkButton from '@/components/LinkButton'
 import axios from '@/lib/axios'
+import { Board } from '@/lib/client'
 
-type Board = {
-  id: number
-  user_id: number
-  title: string
-  detil: string
-  created_at: datetime
-  updated_at: datetime
-}
-
+// type Board = {
+//   id: number
+//   user_id: number
+//   title: string
+//   detail: string
+//   created_at: string
+//   updated_at: string
+// }
 
 type Props = {
   board?: Board
@@ -22,7 +22,7 @@ type Props = {
 }
 
 const BoardForm: React.FC<Props> = ({ board, onSubmit, onError }) => {
-  const [imageKey, setImageKey] = useState(board?.key)
+  // const [imageKey, setImageKey] = useState(board?.key)
   const { register, handleSubmit, errors } = useForm()
   const router = useRouter()
   const onBack = async () => {

@@ -9,14 +9,6 @@ export type User = {
   password_confirmation: string
 }
 
-const readUser = (): User | undefined => {
-  const fetcher = () =>
-    customAxios.get(`/users/me`).then((res) => res.data)
-  const { data, error } = useSWR(`/users/me`, fetcher)
-  return  { user: data, error }
-}
-
-
 export const useUsers = (): { users: User[]; error: any } => {
   const fetcher = () => axios.get('/users').then((res) => res.data)
   const { data, error } = useSWR('/users', fetcher)
@@ -38,7 +30,7 @@ export const useCreateUser = () => {
 }
 
 export const useUpdateUser = () => {
-  return async (id: number, skill: User) => {
+  return async (id: number, user: User) => {
     await axios.put(`/users/${id}`, user)
     await mutate(`/users/${id}`)
   }

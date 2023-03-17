@@ -51,7 +51,7 @@ const Edit: NextPage<{ note: Note }> = ({
   return (
     <Layout signedin={!!currentUser} loading={loading} >
       <Header title="Edit Note" />
-      <NoteForm onSubmit={onSubmit} note={note} currentUser={currentUser} onError={onError} />
+      <NoteForm onSubmit={onSubmit} note={note} onError={onError} />
     </Layout>
   )
 }

@@ -6,7 +6,7 @@ import Header from '@/components/Haeder'
 import LinkButton from '@/components/LinkButton'
 import { useAuth } from '@/lib/next-hook-auth'
 import { useToasts } from 'react-toast-notifications'
-import { Note, useNote, useUpdateNote, useDeleteNote, useCreatePage} from '@/lib/client'
+import { Page, Note, useNote, useUpdateNote, useDeleteNote, useCreatePage} from '@/lib/client'
 import { useReplaceLnToBr } from '@/lib/util/StringUtil'
 
 import React, { useState, useEffect } from 'react'
@@ -61,7 +61,7 @@ const Show: NextPage<{ note: Note, page: Page, pages: Page[] }> = ({
   const deleteNote = useDeleteNote()
   const nl2br = require('react-nl2br')
   const [tag, setTag] = useState('')
-  const [isShow, setShow] = useState('')
+  const [isShow, setShow] = useState(false)
   const [modalIsOpen, setIsOpen] = useState<boolean>(false)
 
   let subtitle: HTMLHeadingElement | null
@@ -111,7 +111,8 @@ const Show: NextPage<{ note: Note, page: Page, pages: Page[] }> = ({
   useEffect(() => {
     console.log("useEffect user " + JSON.stringify(localStorage.user))
     const user = JSON.parse(localStorage.user)
-    setShow(note.user.id == user.id ? true : false)
+    const show = note.user.id == user.id ? true : false
+    setShow(show)
   }, [tag])
 
   return (
@@ -152,7 +153,7 @@ const Show: NextPage<{ note: Note, page: Page, pages: Page[] }> = ({
         onRequestClose={closeModal}
       >
         <h2 ref={(_subtitle) => (subtitle = _subtitle)}>{note.title}</h2>
-        <PageForm onSubmit={onSubmit} note={note} page={page} currentUser={currentUser} onError={onError} />
+        <PageForm onSubmit={onSubmit} note={note} page={page} onError={onError} />
         <button onClick={closeModal}>close</button>
       </Modal>
 
