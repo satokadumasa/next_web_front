@@ -173,14 +173,16 @@ const Show: NextPage<{ note: Note, page: Page, pages: Page[] }> = ({
                 Delete
               </button>
             )}
-            <div className="flex m-1">
-              <button 
-                className="text-sm px-4 py-1 h-10 m-1 rounded bg-black text-white text-right"
-                onClick={openModal}
-              >
-                Page
-              </button>
-            </div>
+            {(currentUser && isShow) && (
+              <div className="flex m-1">
+                <button 
+                  className="text-sm px-4 py-1 h-10 m-1 rounded bg-black text-white text-right"
+                  onClick={openModal}
+                >
+                  Page
+                </button>
+              </div>
+            )}
             <div className="flex m-1">
               <LinkButton href="/notes">Back</LinkButton>
             </div>
