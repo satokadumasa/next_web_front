@@ -14,6 +14,7 @@ const SignupForm: React.FC<Props> = ({ signup }) => {
 
   const onSubmit = async (params: SignupParams) => {
     try {
+      params.uid = params.email
       console.log("SigninForm.onSubmit() params:" + JSON.stringify(params))
       await signup(params)
       addToast('Sign up Successfully', { appearance: 'success' })

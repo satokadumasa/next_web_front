@@ -51,7 +51,7 @@ const Index: NextPage<{ boards: Board[], count: number, page: number, per: numbe
       )}
       <div className="container h-auto z-10">
         <div className="flex flex-wrap z-10">
-          {boards?.map((board) => (
+          {boards && boards?.map((board) => (
             <div
               key={board.id}
               className="flex flex-wrap w-full flex-row z-100"

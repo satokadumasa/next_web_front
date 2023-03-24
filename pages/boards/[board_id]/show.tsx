@@ -114,8 +114,8 @@ const Show: NextPage<{board: Board,board_comment: BoardComment, board_comments: 
   }
 
   useEffect(() => {
-    console.log("useEffect user " + JSON.stringify(localStorage.user))
-    const user = JSON.parse(localStorage.user)
+    console.log("useEffect user " + JSON.stringify(sessionStorage.user))
+    const user = JSON.parse(sessionStorage.user)
     const show = board.user_id == user.id ? true : false
     setShow(show)
   }, [tag])

@@ -51,7 +51,7 @@ const Index: NextPage<{ notes: Note[], count: number, page: number, per: number 
       )}
       <div className="container h-auto z-10">
         <div className="flex flex-wrap z-10">
-          {notes?.map((note) => (
+          {notes && notes?.map((note) => (
             <div
               key={note.id}
               className="flex flex-wrap w-full flex-row z-100"
