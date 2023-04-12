@@ -30,7 +30,7 @@ const New: React.FC = () => {
 
   return (
     <Layout signedin={!!currentUser} loading={loading}>
-      <Header title="New Book" />
+      <Header title="New Note" />
       <div className="flex flex-row justify-end mb-4">
         <LinkButton href="/boards">Back</LinkButton>
       </div>
