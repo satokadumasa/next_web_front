@@ -106,6 +106,7 @@ export const useSignout = () => {
 }
 
 export type SignupParams = {
+  uid: string
   email: string
   password: string
   password_confirmation: string
