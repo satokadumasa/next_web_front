@@ -6,16 +6,6 @@ import LinkButton from '@/components/LinkButton'
 import axios from '@/lib/axios'
 import { Note } from '@/lib/client'
 
-// type Note = {
-//   id: number
-//   user_id: number
-//   title: string
-//   overview: string
-//   detail: string
-//   created_at: string
-//   updated_at: string
-// }
-
 type Props = {
   note?: Note
   onSubmit: (note: Note) => void

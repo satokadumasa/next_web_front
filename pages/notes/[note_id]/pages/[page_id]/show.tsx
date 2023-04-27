@@ -15,8 +15,9 @@ import PageForm from '@/components/forms/PageForm'
 
 
 export async function getServerSideProps(context) {
-  const note_id = context.query.id ? context.query.id : 1
-  const url = process.env.NEXT_PUBLIC_API_SERVER + "/notes/" + note_id
+  const page_id = context.query.page_id ? context.query.page_id : 1
+  const note_id = context.query.note_id ? context.query.note_id : 1
+  const url = process.env.NEXT_PUBLIC_API_SERVER + "/pages/" + page_id
   const res = await fetch(url)
   const data = await res.json()
   const nl2br = require('react-nl2br')
@@ -28,9 +29,7 @@ export async function getServerSideProps(context) {
 
   return {
     props: {
-      // note: data,
-      note: data.note,
-      pages: data.pages,
+      page: data,
     },
   }
 }
@@ -48,10 +47,8 @@ const customStyles = {
   },
 }
 
-const Show: NextPage<{ note: Note, page: Page, pages: Page[] }> = ({
-  note,
-  page,
-  pages
+const Show: NextPage<{ page: Page}> = ({
+  page
 }) => {
   const { currentUser, loading } = useAuth(true)
   const { addToast } = useToasts()
@@ -70,7 +67,7 @@ const Show: NextPage<{ note: Note, page: Page, pages: Page[] }> = ({
       create(page)
       addToast('Saved Successfully', { appearance: 'success' })
       closeModal()
-      router.push('/notes/' + router.query.id + '/show')
+      router.push('/notes/' + router.query.note_id + '/show')
     } catch (e) {
       addToast(e.message, { appearance: 'error' })
     }
@@ -82,7 +79,7 @@ const Show: NextPage<{ note: Note, page: Page, pages: Page[] }> = ({
 
   const onDelete = async () => {
     console.log("onDelete()")
-    await deleteNote(Number(router.query.id))
+    await deleteNote(Number(router.query.note_id))
     addToast('Sign out Successfully', { appearance: 'success' })
     router.push('/notes')
   }
@@ -109,59 +106,43 @@ const Show: NextPage<{ note: Note, page: Page, pages: Page[] }> = ({
   }
 
   useEffect(() => {
-    console.log("useEffect user " + JSON.stringify(sessionStorage.user))
+    console.log("useEffect user " + sessionStorage.user)
+    console.log("useEffect page " + JSON.stringify(page))
     const user = JSON.parse(sessionStorage.user)
-    const show = note.user.id == user.id ? true : false
+    const show = page.user.id == user.id ? true : false
     setShow(show)
   }, [tag])
 
   return (
     <Layout signedin={!!currentUser} loading={loading}>
-      <Header title={note.title} />
+      <Header title={page.title} />
       <div className="container z-1">
         <div className="flex flex-col items-center">
-          <div className="flex h-full w-full flex-row h-full text-left break-words new-line">
-            { nl2br(note.overview) }
-          </div>
-          <div className="flex h-full w-full flex-row h-full text-left break-words new-line detail">
-            { nl2br(note.detail) }
+          <div className="flex h-full w-full flex-row text-left text-xs break-words new-line detail">
+            { nl2br(page.detail) }
           </div>
         </div>
-        {pages?.map((comment) => (
+        {/* {pages?.map((page) => (
           <div
-            key={comment.id}
+            key={page.id}
             className="flex flex-wrap w-full flex-row z-1"
           >
             <div className="flex w-3/4 pl-1 flex-col title">
-              「{ comment.title }」<br></br>
-              Author[{ comment.user.nickname }]<br></br>
-              { convDate(comment.created_at)}
-            </div>
-            <div className="flex h-full w-full flex-row h-full text-left break-words new-line detail">
-              { nl2br(comment.detail) }
+                <a  href={`/page/${page.id}/show`} rel="noreferrer">
+                  「{ page.title }」<br></br>
+                </a>
+              { convDate(page.created_at)}
             </div>
           </div>
-        ))}
+        ))} */}
         <div className="content-footer"></div>
       </div>
 
-      <Modal
-        contentLabel="コメント"
-        isOpen={modalIsOpen}
-        style={customStyles}
-        onAfterOpen={afterOpenModal}
-        onRequestClose={closeModal}
-      >
-        <h2 ref={(_subtitle) => (subtitle = _subtitle)}>{note.title}</h2>
-        <PageForm onSubmit={onSubmit} note={note} page={page} onError={onError} />
-        <button onClick={closeModal}>close</button>
-      </Modal>
-
       <div className="flex w-full w-1/1 pl-1 flex-row confirmBtn">
-        <div className="flex w-full flex-row text-right">
+        <div className="flex flex-row text-right">
             {(currentUser && isShow) && (
               <div className="flex m-1">
-                <LinkButton href={`/notes/${note.id}/edit`}>
+                <LinkButton href={`/notes/${router.query.note_id}/pages/${page.id}/edit`}>
                   Edit
                 </LinkButton>
               </div>
@@ -185,7 +166,7 @@ const Show: NextPage<{ note: Note, page: Page, pages: Page[] }> = ({
               </div>
             )}
             <div className="flex m-1">
-              <LinkButton href="/notes">Back</LinkButton>
+              <LinkButton href={`/notes/${router.query.note_id}/show`}>Back</LinkButton>
             </div>
           </div>
       </div>

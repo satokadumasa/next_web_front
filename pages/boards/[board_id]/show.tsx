@@ -129,7 +129,7 @@ const Show: NextPage<{board: Board,board_comment: BoardComment, board_comments: 
         </div>
         <div className="z-10">
           <div className="flex flex-col items-center">
-            <div className="flex h-full w-full flex-row h-full text-left break-words new-line detail">
+            <div className="flex h-full w-full flex-row text-lef text-xs break-words new-line detail">
               { nl2br(board.detail) }
             </div>
           </div>
@@ -144,7 +144,7 @@ const Show: NextPage<{board: Board,board_comment: BoardComment, board_comments: 
               Author[{ comment.user.nickname }]<br></br>
               { convDate(comment.created_at)}
             </div>
-            <div className="flex h-full w-full flex-row h-full text-left break-words new-line detail">
+            <div className="flex h-full w-full flex-row text-left text-xs break-words new-line detail">
               { nl2br(comment.detail) }
             </div>
           </div>
@@ -175,13 +175,13 @@ const Show: NextPage<{board: Board,board_comment: BoardComment, board_comments: 
             </button>
           )}
           {(currentUser && isShow) && (
-            <div className="flex w-full flex-row text-right">
+            <div className="flex flex-row text-right">
               <LinkButton href={`/boards/${board.id}/edit`}>
                 Edit
               </LinkButton>
             </div>
           )}
-          <div className="flex w-full flex-row text-right">
+          <div className="flex flex-row text-right">
             <button 
               className="text-sm px-4 py-1 h-10 m-1 rounded bg-black text-white text-right"
               onClick={openModal}
@@ -189,7 +189,7 @@ const Show: NextPage<{board: Board,board_comment: BoardComment, board_comments: 
               Comment
             </button>
           </div>
-          <div className="flex w-full flex-row text-right">
+          <div className="flex flex-row text-right">
             <LinkButton href="/boards">Back</LinkButton>
           </div>
         </div>

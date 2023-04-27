@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react'
+import React, { useCallback, useState, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { useDropzone } from 'react-dropzone'
 import { useRouter } from 'next/router'
@@ -6,40 +6,32 @@ import LinkButton from '@/components/LinkButton'
 import axios from '@/lib/axios'
 import { Board } from '@/lib/client'
 
-// type Board = {
-//   id: number
-//   user_id: number
-//   title: string
-//   detail: string
-//   created_at: string
-//   updated_at: string
-// }
-
 type Props = {
   board?: Board
   onSubmit: (board: Board) => void
   onError: () => void
 }
 
-const BoardForm: React.FC<Props> = ({ board, onSubmit, onError }) => {
-  // const [imageKey, setImageKey] = useState(board?.key)
+const BoardForm: React.FC<Props> = ({ user, board, onSubmit, onError }) => {
   const { register, handleSubmit, errors } = useForm()
   const router = useRouter()
   const onBack = async () => {
     console.log("onDelete()")
     router.push('/boards')
   }
+  const [tag, setTag] = useState('')
+  let user_id = 0;
+
+  useEffect(() => {
+    const user = JSON.parse(sessionStorage.user)
+    console.log("useEffect user:" + JSON.stringify(user))
+    user_id = user.id
+    console.log("useEffect user_id:" + user_id)
+  }, [tag])
+
 
   return (
     <form onSubmit={handleSubmit(onSubmit, onError)}>
-      <input
-        type="hidden"
-        name="id"
-        id="id"
-        className="mt-2 mb-2 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-100 focus:ring-1"
-        ref={register({ required: false })}
-        defaultValue={board?.id}
-      />
 
       <label className="block mb-4">
         <span>タイトル</span>

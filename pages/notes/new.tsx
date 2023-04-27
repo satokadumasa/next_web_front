@@ -1,24 +1,24 @@
 import React from 'react'
 import Layout from '@/components/Layout'
 import Header from '@/components/Haeder'
-import BoardForm from '@/components/forms/BoardForm'
+import NoteForm from '@/components/forms/NoteForm'
 import LinkButton from '@/components/LinkButton'
 import { useAuth } from '@/lib/next-hook-auth'
 import { useToasts } from 'react-toast-notifications'
 import { useRouter } from 'next/router'
-import { useCreateBoard } from '@/lib/client'
+import { useCreateNote } from '@/lib/client'
 
 const New: React.FC = () => {
   const { currentUser, loading } = useAuth(true)
   const { addToast } = useToasts()
   const router = useRouter()
-  const create = useCreateBoard()
+  const create = useCreateNote()
 
   const onSubmit = async (article) => {
     try {
       create(article)
       addToast('Saved Successfully', { appearance: 'success' })
-      router.push('/boards')
+      router.push('/notes')
     } catch (e) {
       addToast(e.message, { appearance: 'error' })
     }
@@ -32,9 +32,9 @@ const New: React.FC = () => {
     <Layout signedin={!!currentUser} loading={loading}>
       <Header title="New Note" />
       <div className="flex flex-row justify-end mb-4">
-        <LinkButton href="/boards">Back</LinkButton>
+        <LinkButton href="/notes">Back</LinkButton>
       </div>
-      <BoardForm onSubmit={onSubmit} onError={onError} />
+      <NoteForm onSubmit={onSubmit} onError={onError} />
     </Layout>
   )
 }

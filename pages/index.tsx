@@ -9,15 +9,10 @@ const Home: React.FC = () => {
 
   return (
     <Layout signedin={!!currentUser}>
-      <div className="flex flex-col md:flex-row justify-center items-center content">
-        <div>
-          <h1 className="text-4xl leading-tight text-gray-900 py-4 my-4 border-b-2">
-            Welcome to September-Rain.
-          </h1>
-        </div>
-        <div>
-          <img src="/images/logo.jpg" />
-        </div>
+      <div className="flex flex-col md:flex-row content">
+        <h1>
+          Welcome to September-Rain.
+        </h1>
       </div>
     </Layout>
   )

@@ -6,27 +6,6 @@ import LinkButton from '@/components/LinkButton'
 import axios from '@/lib/axios'
 import { Note, Page } from '@/lib/client'
 
-// type Note = {
-//   id: number
-//   user_id: number
-//   title: string
-//   overview: string
-//   detail: string
-//   created_at: string
-//   updated_at: string
-// }
-
-// type Page = {
-//   id: number
-//   user_id: number
-//   note_id: number
-//   title: string
-//   overview: string
-//   detail: string
-//   created_at: string
-//   updated_at: string
-// }
-
 type Props = {
   note?: Note
   page?: Page
