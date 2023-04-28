@@ -12,7 +12,7 @@ type Props = {
   onError: () => void
 }
 
-const BoardForm: React.FC<Props> = ({ user, board, onSubmit, onError }) => {
+const BoardForm: React.FC<Props> = ({ board, onSubmit, onError }) => {
   const { register, handleSubmit, errors } = useForm()
   const router = useRouter()
   const onBack = async () => {
