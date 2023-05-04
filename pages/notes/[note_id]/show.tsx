@@ -52,7 +52,7 @@ const Show: NextPage<{ note: Note, page: Page, pages: Page[] }> = ({
   page,
   pages
 }) => {
-  const { currentUser, loading } = useAuth(true)
+  const { currentUser, loading } = useAuth()
   const { addToast } = useToasts()
   const router = useRouter()
   const create = useCreatePage()
@@ -117,21 +117,24 @@ const Show: NextPage<{ note: Note, page: Page, pages: Page[] }> = ({
   return (
     <Layout signedin={!!currentUser} loading={loading}>
       <Header title={note.title} />
-      <div className="container z-1">
+      <div className="py-1">
+          Author[{ note.user.nickname}]
+      </div>
+      <div className="container z-1 py-1">
         <div className="flex flex-col items-center">
-          <div className="flex h-full w-full flex-row text-left text-xs break-words new-line">
+          <div className="flex h-full w-full text-left text-xs break-words new-line">
             { nl2br(note.overview) }
           </div>
-          <div className="flex h-full w-full flex-row text-left text-xs break-words new-line detail">
+          <div className="flex h-full w-full text-left text-xs break-words new-line detail">
             { nl2br(note.detail) }
           </div>
         </div>
         {pages?.map((page) => (
           <div
             key={page.id}
-            className="flex flex-wrap w-full flex-row z-1"
+            className="flex flex-wrap w-full flex-row z-1 py-1"
           >
-            <div className="flex w-3/4 pl-1 flex-col">
+            <div className="pl-1 flex-col">
                 <a  href={`/notes/${note.id}/pages/${page.id}/show`} rel="noreferrer">
                   「{ page.title }」<br></br>
                 </a>

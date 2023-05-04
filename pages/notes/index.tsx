@@ -56,7 +56,7 @@ const Index: NextPage<{ notes: Note[], count: number, page: number, per: number 
               key={note.id}
               className="flex flex-wrap w-full flex-row z-100"
             >
-              <div className="flex w-3/4 pl-1 flex-col">
+              <div className="flex flex-col pl-1 text-sm">
                 <a  href={`/notes/${note.id}/show`} rel="noreferrer">
                   {note.title}
                 </a>

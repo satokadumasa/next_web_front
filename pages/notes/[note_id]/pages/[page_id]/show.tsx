@@ -50,7 +50,7 @@ const customStyles = {
 const Show: NextPage<{ page: Page}> = ({
   page
 }) => {
-  const { currentUser, loading } = useAuth(true)
+  const { currentUser, loading } = useAuth()
   const { addToast } = useToasts()
   const router = useRouter()
   const create = useCreatePage()

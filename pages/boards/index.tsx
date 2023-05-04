@@ -56,7 +56,7 @@ const Index: NextPage<{ boards: Board[], count: number, page: number, per: numbe
               key={board.id}
               className="flex flex-wrap w-full flex-row z-100"
             >
-              <div className="flex w-3/4 pl-1 flex-col">
+              <div className="flex flex-col pl-1 text-sm">
                 <a  href={`/boards/${board.id}/show`} rel="noreferrer">
                   {board.title}
                 </a>

@@ -14,8 +14,6 @@ import React, { useState, useEffect } from 'react'
 import Modal from 'react-modal'
 import BoardCommentForm from '@/components/forms/BoardCommentForm'
 import customAxios from '@/lib/customAxios'
-
-// import { parseISO, format } from 'date-fns'
 import ja from 'date-fns/locale/ja'
 
 export async function getServerSideProps(context) {
@@ -57,7 +55,7 @@ const Show: NextPage<{board: Board,board_comment: BoardComment, board_comments: 
   board_comment,
   board_comments
 }) => {
-  const { currentUser, loading} = useAuth(true)
+  const { currentUser, loading} = useAuth()
   const { addToast } = useToasts()
   const router = useRouter()
   const create = useCreateBoardComment()
@@ -124,10 +122,10 @@ const Show: NextPage<{board: Board,board_comment: BoardComment, board_comments: 
     <Layout signedin={!!currentUser} loading={loading}>
       <div className="z-1">
         <Header title={board.title} />
-        <div>
-        Author[{ board.user.nickname}][ { isShow } ]
+        <div className=" py-1">
+          Author[{ board.user.nickname}]
         </div>
-        <div className="z-10">
+        <div className="z-10  py-1">
           <div className="flex flex-col items-center">
             <div className="flex h-full w-full flex-row text-lef text-xs break-words new-line detail">
               { nl2br(board.detail) }
@@ -137,9 +135,9 @@ const Show: NextPage<{board: Board,board_comment: BoardComment, board_comments: 
         {board_comments?.map((comment) => (
           <div
             key={comment.id}
-            className="flex flex-wrap w-full flex-row z-1"
+            className="flex flex-col w-full flex-row z-1 py-1"
           >
-            <div className="flex w-3/4 pl-1 flex-col title">
+            <div className="flex pl-1 flex-col title">
               「{ comment.title }」<br></br>
               Author[{ comment.user.nickname }]<br></br>
               { convDate(comment.created_at)}

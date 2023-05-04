@@ -6,12 +6,10 @@ type Props = {
 
 export const Header: React.FC<Props> = (props) => {
   return (
-    <header className="bg-white z-1 content-header">
-      <div className="max-w-7xl mx-auto py-8">
-        <h1 className="text-3xl font-bold leading-tight text-gray-900">
-          {props?.title}
-        </h1>
-      </div>
+    <header className="bg-white z-1 content-header py-1">
+      <h1 className="text-lg font-bold leading-tight">
+        {props?.title}
+      </h1>
     </header>
   )
 }
