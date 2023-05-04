@@ -86,7 +86,7 @@ const PageForm: React.FC<Props> = ({ note, page, onSubmit, onError }) => {
             console.log("detail length:" + e.target.value.length)
             if (e.target.value.length > 2048) {
               alert("2048文字を超えての入力はできません。")
-              e.target.value = e.target.value.substring(0, 2048)
+              e.target.value = e.target.value.substring(0, 5048)
             }
           }}
         />
