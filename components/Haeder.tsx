@@ -6,7 +6,7 @@ type Props = {
 
 export const Header: React.FC<Props> = (props) => {
   return (
-    <header className="bg-white z-1 content-header py-1">
+    <header className="bg-white z-1 py-1">
       <h1 className="text-lg font-bold leading-tight">
         {props?.title}
       </h1>

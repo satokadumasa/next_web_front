@@ -125,7 +125,7 @@ const Show: NextPage<{board: Board,board_comment: BoardComment, board_comments: 
         <div className=" py-1">
           Author[{ board.user.nickname}]
         </div>
-        <div className="z-10  py-1">
+        <div className="z-10 py-1">
           <div className="flex flex-col items-center">
             <div className="flex h-full w-full flex-row text-lef text-xs break-words new-line detail">
               { nl2br(board.detail) }
