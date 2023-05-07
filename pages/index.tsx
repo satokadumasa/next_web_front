@@ -5,6 +5,7 @@ import Layout from '@/components/Layout'
 import Link from 'next/link'
 import { useAuth } from '@/lib/next-hook-auth'
 import axios from '@/lib/axios'
+import { Board, Note } from '@/lib/client'
 
 export async function getServerSideProps(context) {
   const url = process.env.NEXT_PUBLIC_API_SERVER + "/home/index"
@@ -19,17 +20,13 @@ export async function getServerSideProps(context) {
 
   return {
     props: {
-      board_comments: data.board_comments,
-      pages: data.pages,
       boards: data.boards,
       notes: data.notes
     },
   }
 }
 
-const Home: NextPage<{ board_comments: BoardComment[], pages: Page[], boards: Board[], notes: Note[] }> = ({
-  board_comments,
-  pages,
+const Home: NextPage<{ boards: Board[], notes: Note[] }> = ({
   boards,
   notes
 }) => {
